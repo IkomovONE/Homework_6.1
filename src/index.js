@@ -297,7 +297,7 @@ const buildChart = async (Area) => {
       }
       regions[index] = {
           name: region,
-          values: valuesList
+          values: valuesList.reverse()
       }
   })
 
@@ -321,6 +321,7 @@ const buildChart = async (Area) => {
       lineOptions: {
           hideDots: 0,
           regionFill: 0
+          
       }
 
   })
