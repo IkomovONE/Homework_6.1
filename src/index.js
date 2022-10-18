@@ -134,6 +134,8 @@ Code= await getAreaNames(Area)
 
 function initCode() {
     
+    buildChart("SSS")
+    
 
    
 
