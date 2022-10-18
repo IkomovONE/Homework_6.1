@@ -2,58 +2,343 @@ import "./styles.css";
 
 import { Chart } from "frappe-charts/dist/frappe-charts.esm.js";
 
-new Chart("#chart", {
-  // or DOM element
-  data: {
-    labels: [
-      "12am-3am",
-      "3am-6am",
-      "6am-9am",
-      "9am-12pm",
-      "12pm-3pm",
-      "3pm-6pm",
-      "6pm-9pm",
-      "9pm-12am"
+
+
+if(document.readyState !== "loading") {
+    console.log("Document is ready!");
+    initCode();
+} else {
+    document.addEventListener("DOMContentLoaded", function() {
+        console.log("Document is ready after waiting!");
+        initCode();
+    })
+}
+
+
+
+
+const getAreaNames= async (Alue) => {
+    
+    
+    
+    
+    Alue= Alue.toUpperCase()
+    
+    
+    
+    
+    
+    
+    
+   
+    
+    const url= "https://statfin.stat.fi/PxWeb/api/v1/en/StatFin/synt/statfin_synt_pxt_12dy.px"
+    
+    
+    
+    const Fetched= await fetch(url)
+    
+   
+    
+    const Area= await Fetched.json()
+    
+    
+    
+    var cities= Area.variables[1].valueTexts
+    
+    var cityCodes= Area.variables[1].values
+    
+    
+    
+    for (let i= 0; i< cities.length; i++) {
+        
+        
+        
+        cities[i]= cities[i].toUpperCase()
+        
+    }
+        
+        
+   
+    
+    
+    
+    
+    if (cities.indexOf(Alue)) {
+        
+        
+        
+        
+        
+        var index= cities.indexOf(Alue)
+        
+        
+        
+    }
+    
+    else {
+        
+        return null
+    }
+    
+    
+    
+    var Code= cityCodes[index]
+    
+    
+    
+    return Code
+    
+    
+    
+}
+
+
+
+const launchChart= async () => {
+    
+    
+    
+    const Area = document.getElementById("input-area").value
+    
+    var Code= getAreaNames(Area)
+    
+    
+     
+Code= await getAreaNames(Area)
+        
+        
+    
+    
+   
+    
+    
+
+    
+    document.getElementById("legend").innerHTML= Area
+    
+    
+    
+    buildChart(Code)
+    
+    
+    
+    return Code
+    
+      
+    
+}
+
+
+
+
+function initCode() {
+    
+buildChart("SSS")
+   
+
+const addAreaButton = document.getElementById("submit-area");
+
+const Area = document.getElementById("input-area").value
+
+
+
+
+
+addAreaButton.addEventListener("click", function() {
+    
+  launchChart()  
+    
+})
+
+}
+
+
+
+const JsonQuery= async (Area) => {
+    
+     
+
+const jsonQuery = {
+    "query": [
+        {
+            "code": "Vuosi",
+            "selection": {
+                "filter": "item",
+                "values": [
+                    "2000",
+                    "2001",
+                    "2002",
+                    "2003",
+                    "2004",
+                    "2005",
+                    "2006",
+                    "2007",
+                    "2008",
+                    "2009",
+                    "2010",
+                    "2011",
+                    "2012",
+                    "2013",
+                    "2014",
+                    "2015",
+                    "2016",
+                    "2017",
+                    "2018",
+                    "2019",
+                    "2020",
+                    "2021"
+                ]
+            }
+        },
+        {
+            "code": "Alue",
+            "selection": {
+                "filter": "item",
+                "values": [
+                  Area,
+                  
+                  
+                  
+                 
+                ]
+            }
+        },
+        {
+            "code": "Tiedot",
+            "selection": {
+                "filter": "item",
+                "values": [
+                    "vaesto"
+                ]
+            }
+        }
     ],
+    "response": {
+        "format": "json-stat2"
+    }
+}
 
-    datasets: [
-      {
-        name: "Some Data",
-        chartType: "bar",
-        values: [25, 40, 30, 35, 8, 52, 17, -4]
-      },
-      {
-        name: "Another Set",
-        chartType: "bar",
-        values: [25, 50, -10, 15, 18, 32, 27, 14]
-      },
-      {
-        name: "Yet Another",
-        chartType: "line",
-        values: [15, 20, -3, -15, 58, 12, -17, 37]
-      }
-    ],
 
-    yMarkers: [{ label: "Marker", value: 70, options: { labelPos: "left" } }],
-    yRegions: [
-      { label: "Region", start: -10, end: 50, options: { labelPos: "right" } }
-    ]
-  },
 
-  title: "My Awesome Chart",
-  type: "axis-mixed", // or 'bar', 'line', 'pie', 'percentage'
-  height: 300,
-  colors: ["purple", "#ffa3ef", "light-blue"],
-  axisOptions: {
-    xAxisMode: "tick",
-    xIsSeries: true
-  },
-  barOptions: {
-    stacked: true,
-    spaceRatio: 0.5
-  },
-  tooltipOptions: {
-    formatTooltipX: (d) => (d + "").toUpperCase(),
-    formatTooltipY: (d) => d + " pts"
+return jsonQuery
+
+
+}
+
+
+
+
+
+
+
+
+
+const getData = async (Area) => {
+    
+  const url = "https://statfin.stat.fi/PxWeb/api/v1/en/StatFin/synt/statfin_synt_pxt_12dy.px"
+
+  const res = await fetch(url, {
+      method: "POST",
+      headers: {"content-type": "application/json"},
+      body: JSON.stringify(await JsonQuery(Area))
+  })
+  if(!res.ok) {
+      return;
   }
-});
+  
+  
+  
+  
+  
+  
+  const data = await res.json()
+
+  return data
+}
+
+
+
+const buildChart = async (Area) => {
+    
+  const data = await getData(Area)
+  
+  if (data== null) {
+      
+      document.getElementById("legend").innerHTML= "No info about this municipality!"
+      
+  }
+  
+  const years = Object.values(data.dimension.Vuosi.category.label);
+  const regions = Object.values(data.dimension.Alue.category.label);
+  const population = data.value;
+  
+  
+      
+      
+    
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+
+  regions.forEach((region, index) => {
+    
+      let valuesList = []
+      for(let i = 0; i < years.length; i++) {
+          valuesList.push(population[i])
+      }
+      regions[index] = {
+          name: region,
+          values: valuesList
+      }
+  })
+
+  
+
+  const chartData = {
+      labels: years,
+      datasets: regions,
+  }
+
+
+  const chart = new Chart("#chart", {
+      title: "Finnish population growth",
+      data: chartData,
+      type: "line",
+      height: 450,
+      colors: ['#eb5146'],
+      /*barOptions: {
+          stacked: 1
+      },*/
+      lineOptions: {
+          hideDots: 1,
+          regionFill: 0
+      }
+
+  })
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
