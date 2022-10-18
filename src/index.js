@@ -284,16 +284,6 @@ const buildChart = async (Area) => {
   
       
 
-    
-  
-  
-
-  
-  
-  
-  
-  
-
   
   
 
