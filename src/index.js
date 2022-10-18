@@ -137,7 +137,7 @@ function initCode() {
 buildChart("SSS")
    
 
-const addAreaButton = document.getElementById("submit-area");
+const addAreaButton = document.getElementById("submit-data");
 
 const Area = document.getElementById("input-area").value
 

@@ -3631,7 +3631,7 @@ var launchChart = /*#__PURE__*/function () {
 }();
 function initCode() {
   buildChart("SSS");
-  var addAreaButton = document.getElementById("submit-area");
+  var addAreaButton = document.getElementById("submit-data");
   var Area = document.getElementById("input-area").value;
   addAreaButton.addEventListener("click", function () {
     launchChart();
