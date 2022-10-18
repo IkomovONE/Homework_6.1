@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  
 }
 
 fieldset {
@@ -37,3 +38,19 @@ button {
   
   
 }
+
+
+legend {
+  
+  font-size: xx-large;
+  
+}
+
+
+h1 {
+  
+  font-size: large;
+  
+}
+
+

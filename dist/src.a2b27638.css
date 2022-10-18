@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  
 }
 
 fieldset {
@@ -37,6 +38,22 @@ button {
   
   
 }
+
+
+legend {
+  
+  font-size: xx-large;
+  
+}
+
+
+h1 {
+  
+  font-size: large;
+  
+}
+
+
 
 
 /*# sourceMappingURL=/src.a2b27638.css.map */

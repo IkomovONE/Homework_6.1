@@ -2,7 +2,7 @@ import "./styles.css";
 
 import { Chart } from "frappe-charts/dist/frappe-charts.esm.js";
 
-var Area= "SSS"
+
 
 if(document.readyState !== "loading") {
     console.log("Document is ready!");
@@ -17,18 +17,93 @@ if(document.readyState !== "loading") {
 
 
 
+const getAreaNames= async () => {
+    
+    
+   
+    
+    const url= "https://statfin.stat.fi/PxWeb/api/v1/en/StatFin/synt/statfin_synt_pxt_12dy.px"
+    
+    
+    
+    const Fetched= await fetch(url)
+    
+   
+    
+    const Area= await Fetched.json()
+    
+    
+    
+    var jjj= Area.variables.Alue
+    
+   
+    
+    
+    
+    
+    console.log(jjj)
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+}
+
+
+
+
+
 
 function initCode() {
+    
+buildChart("SSS")
+   
 
 const addAreaButton = document.getElementById("submit-area");
+
+const Area = document.getElementById("input-area").value
+
+
+
+
+
+
 
 addAreaButton.addEventListener("click", function() {
     
     
-    const Area = document.getElementById("submit-area").value
+    const Area = document.getElementById("input-area").value
     
     
-    console.log(area)
+    
+    
+    var data= getAreaNames()
+    
+    
+
+
+    
+    
+    
+    document.getElementById("legend").innerHTML= Area
+    
+    
+    
+    buildChart(Area)
+    
+    
+    
+    
+    
+    
+    return Area
     
     
     
@@ -47,7 +122,27 @@ addAreaButton.addEventListener("click", function() {
 
 
 
-function JsonQuery(Area) {
+const JsonQuery= async (Area) => {
+    
+    
+    
+    
+    
+       
+        
+        
+        
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 const jsonQuery = {
     "query": [
@@ -136,6 +231,12 @@ const getData = async (Area) => {
   if(!res.ok) {
       return;
   }
+  
+  
+  
+  
+  
+  
   const data = await res.json()
 
   return data
@@ -146,13 +247,25 @@ const getData = async (Area) => {
 const buildChart = async (Area) => {
     
   const data = await getData(Area)
-  //console.log(data)
-
+  
+  if (data== null) {
+      
+      document.getElementById("legend").innerHTML= "No info about this municipality!"
+      
+  }
+  
   const years = Object.values(data.dimension.Vuosi.category.label);
   const regions = Object.values(data.dimension.Alue.category.label);
   const population = data.value;
   
-  console.log(data)
+  
+      
+      
+    
+  
+  
+
+  
   
   
   
@@ -202,7 +315,14 @@ const buildChart = async (Area) => {
 }
 
 
-buildChart(Area)
+
+
+
+
+
+
+
+
 
 
 
