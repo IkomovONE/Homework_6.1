@@ -134,7 +134,7 @@ Code= await getAreaNames(Area)
 
 function initCode() {
     
-buildChart("SSS")
+
    
 
 const addAreaButton = document.getElementById("submit-data");
@@ -301,7 +301,7 @@ const buildChart = async (Area) => {
       }
   })
 
-  
+console.log(regions)
 
   const chartData = {
       labels: years,

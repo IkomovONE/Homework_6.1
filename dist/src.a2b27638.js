@@ -3630,7 +3630,6 @@ var launchChart = /*#__PURE__*/function () {
   };
 }();
 function initCode() {
-  buildChart("SSS");
   var addAreaButton = document.getElementById("submit-data");
   var Area = document.getElementById("input-area").value;
   addAreaButton.addEventListener("click", function () {
@@ -3760,6 +3759,7 @@ var buildChart = /*#__PURE__*/function () {
                 values: valuesList
               };
             });
+            console.log(regions);
             chartData = {
               labels: years,
               datasets: regions
@@ -3779,7 +3779,7 @@ var buildChart = /*#__PURE__*/function () {
                 regionFill: 0
               }
             });
-          case 11:
+          case 12:
           case "end":
             return _context5.stop();
         }
