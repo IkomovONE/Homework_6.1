@@ -3754,7 +3754,7 @@ var buildChart = /*#__PURE__*/function () {
               }
               regions[index] = {
                 name: region,
-                values: valuesList.reverse()
+                values: valuesList
               };
             });
             chartData = {
