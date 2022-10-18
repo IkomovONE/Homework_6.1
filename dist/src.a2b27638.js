@@ -3732,7 +3732,7 @@ var getData = /*#__PURE__*/function () {
 }();
 var buildChart = /*#__PURE__*/function () {
   var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(Area) {
-    var data, years, regions, population, chartData, chart;
+    var data, years, regions, population, i, chartData, chart;
     return _regeneratorRuntime().wrap(function _callee5$(_context5) {
       while (1) {
         switch (_context5.prev = _context5.next) {
@@ -3747,10 +3747,13 @@ var buildChart = /*#__PURE__*/function () {
             years = Object.values(data.dimension.Vuosi.category.label);
             regions = Object.values(data.dimension.Alue.category.label);
             population = data.value;
+            for (i = 0; i < years.length; i++) {
+              years[i] = parseInt(years[i]);
+            }
             regions.forEach(function (region, index) {
               var valuesList = [];
-              for (var i = 0; i < years.length; i++) {
-                valuesList.push(population[i]);
+              for (var _i = 0; _i < years.length; _i++) {
+                valuesList.push(population[_i]);
               }
               regions[index] = {
                 name: region,
@@ -3775,7 +3778,7 @@ var buildChart = /*#__PURE__*/function () {
                 regionFill: 0
               }
             });
-          case 10:
+          case 11:
           case "end":
             return _context5.stop();
         }

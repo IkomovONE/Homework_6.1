@@ -274,8 +274,16 @@ const buildChart = async (Area) => {
   const population = data.value;
   
   
+  for (let i= 0; i< years.length; i++) {
+      
+      years[i]= parseInt(years[i])
       
       
+  }
+  
+  
+      
+
     
   
   
