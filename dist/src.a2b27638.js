@@ -3550,7 +3550,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 if (document.readyState !== "loading") {
   console.log("Document is ready!");
-  initCode();
 } else {
   document.addEventListener("DOMContentLoaded", function () {
     console.log("Document is ready after waiting!");
@@ -3632,7 +3631,6 @@ var launchChart = /*#__PURE__*/function () {
 function initCode() {
   buildChart("SSS");
   var addAreaButton = document.getElementById("submit-data");
-  var Area = document.getElementById("input-area").value;
   addAreaButton.addEventListener("click", function () {
     launchChart();
   });
@@ -3771,9 +3769,6 @@ var buildChart = /*#__PURE__*/function () {
               type: "line",
               height: 450,
               colors: ['#eb5146'],
-              /*barOptions: {
-                  stacked: 1
-              },*/
               lineOptions: {
                 hideDots: 0,
                 dotSize: 3,

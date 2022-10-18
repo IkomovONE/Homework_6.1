@@ -6,11 +6,12 @@ import { Chart } from "frappe-charts/dist/frappe-charts.esm.js";
 
 if(document.readyState !== "loading") {
     console.log("Document is ready!");
-    initCode();
+    
 } else {
     document.addEventListener("DOMContentLoaded", function() {
         console.log("Document is ready after waiting!");
         initCode();
+        
     })
 }
 
@@ -107,12 +108,7 @@ const launchChart= async () => {
      
 Code= await getAreaNames(Area)
         
-        
-    
-    
-   
-    
-    
+       
 
     
     document.getElementById("legend").innerHTML= Area
@@ -141,7 +137,7 @@ function initCode() {
 
 const addAreaButton = document.getElementById("submit-data");
 
-const Area = document.getElementById("input-area").value
+
 
 
 
@@ -198,7 +194,7 @@ const jsonQuery = {
             "selection": {
                 "filter": "item",
                 "values": [
-                  Area,
+                    Area,
                   
                   
                   
@@ -317,15 +313,19 @@ console.log(regions)
       type: "line",
       height: 450,
       colors: ['#eb5146'],
-      /*barOptions: {
-          stacked: 1
-      },*/
+      
       lineOptions: {
           hideDots: 0,
           dotSize: 3,
-          regionFill: 0
+          regionFill: 0,
+          
           
       }
+      
+     
+         
+   
+
       
       
 
