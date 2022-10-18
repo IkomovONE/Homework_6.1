@@ -17,7 +17,17 @@ if(document.readyState !== "loading") {
 
 
 
-const getAreaNames= async () => {
+const getAreaNames= async (Alue) => {
+    
+    
+    
+    
+    Alue= Alue.toUpperCase()
+    
+    
+    
+    
+    
     
     
    
@@ -34,29 +44,90 @@ const getAreaNames= async () => {
     
     
     
-    var jjj= Area.variables.Alue
+    var cities= Area.variables[1].valueTexts
     
+    var cityCodes= Area.variables[1].values
+    
+    
+    
+    for (let i= 0; i< cities.length; i++) {
+        
+        
+        
+        cities[i]= cities[i].toUpperCase()
+        
+    }
+        
+        
    
     
     
     
     
-    console.log(jjj)
+    if (cities.indexOf(Alue)) {
+        
+        
+        
+        
+        
+        var index= cities.indexOf(Alue)
+        
+        
+        
+    }
+    
+    else {
+        
+        return null
+    }
     
     
     
+    var Code= cityCodes[index]
     
     
     
-
-
-    
+    return Code
     
     
     
 }
 
 
+
+const launchChart= async () => {
+    
+    
+    
+    const Area = document.getElementById("input-area").value
+    
+    var Code= getAreaNames(Area)
+    
+    
+     
+Code= await getAreaNames(Area)
+        
+        
+    
+    
+   
+    
+    
+
+    
+    document.getElementById("legend").innerHTML= Area
+    
+    
+    
+    buildChart(Code)
+    
+    
+    
+    return Code
+    
+      
+    
+}
 
 
 
@@ -74,75 +145,19 @@ const Area = document.getElementById("input-area").value
 
 
 
-
-
 addAreaButton.addEventListener("click", function() {
     
-    
-    const Area = document.getElementById("input-area").value
-    
-    
-    
-    
-    var data= getAreaNames()
-    
-    
-
-
-    
-    
-    
-    document.getElementById("legend").innerHTML= Area
-    
-    
-    
-    buildChart(Area)
-    
-    
-    
-    
-    
-    
-    return Area
-    
-    
-    
-    
-    
-    
-    
-    
-   
+  launchChart()  
     
 })
+
 }
-
-
-
 
 
 
 const JsonQuery= async (Area) => {
     
-    
-    
-    
-    
-       
-        
-        
-        
-        
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+     
 
 const jsonQuery = {
     "query": [

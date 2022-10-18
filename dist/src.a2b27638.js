@@ -3558,32 +3558,75 @@ if (document.readyState !== "loading") {
   });
 }
 var getAreaNames = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var url, Fetched, Area, jjj;
+  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(Alue) {
+    var url, Fetched, Area, cities, cityCodes, i, index, Code;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
+            Alue = Alue.toUpperCase();
             url = "https://statfin.stat.fi/PxWeb/api/v1/en/StatFin/synt/statfin_synt_pxt_12dy.px";
-            _context.next = 3;
+            _context.next = 4;
             return fetch(url);
-          case 3:
+          case 4:
             Fetched = _context.sent;
-            _context.next = 6;
+            _context.next = 7;
             return Fetched.json();
-          case 6:
+          case 7:
             Area = _context.sent;
-            jjj = Area.variables.Alue;
-            console.log(jjj);
-          case 9:
+            cities = Area.variables[1].valueTexts;
+            cityCodes = Area.variables[1].values;
+            for (i = 0; i < cities.length; i++) {
+              cities[i] = cities[i].toUpperCase();
+            }
+            if (!cities.indexOf(Alue)) {
+              _context.next = 15;
+              break;
+            }
+            index = cities.indexOf(Alue);
+            _context.next = 16;
+            break;
+          case 15:
+            return _context.abrupt("return", null);
+          case 16:
+            Code = cityCodes[index];
+            return _context.abrupt("return", Code);
+          case 18:
           case "end":
             return _context.stop();
         }
       }
     }, _callee);
   }));
-  return function getAreaNames() {
+  return function getAreaNames(_x) {
     return _ref.apply(this, arguments);
+  };
+}();
+var launchChart = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+    var Area, Code;
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            Area = document.getElementById("input-area").value;
+            Code = getAreaNames(Area);
+            _context2.next = 4;
+            return getAreaNames(Area);
+          case 4:
+            Code = _context2.sent;
+            document.getElementById("legend").innerHTML = Area;
+            buildChart(Code);
+            return _context2.abrupt("return", Code);
+          case 8:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+  return function launchChart() {
+    return _ref2.apply(this, arguments);
   };
 }();
 function initCode() {
@@ -3591,19 +3634,15 @@ function initCode() {
   var addAreaButton = document.getElementById("submit-area");
   var Area = document.getElementById("input-area").value;
   addAreaButton.addEventListener("click", function () {
-    var Area = document.getElementById("input-area").value;
-    var data = getAreaNames();
-    document.getElementById("legend").innerHTML = Area;
-    buildChart(Area);
-    return Area;
+    launchChart();
   });
 }
 var JsonQuery = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(Area) {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(Area) {
     var jsonQuery;
-    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
       while (1) {
-        switch (_context2.prev = _context2.next) {
+        switch (_context3.prev = _context3.next) {
           case 0:
             jsonQuery = {
               "query": [{
@@ -3629,79 +3668,79 @@ var JsonQuery = /*#__PURE__*/function () {
                 "format": "json-stat2"
               }
             };
-            return _context2.abrupt("return", jsonQuery);
+            return _context3.abrupt("return", jsonQuery);
           case 2:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  }));
-  return function JsonQuery(_x) {
-    return _ref2.apply(this, arguments);
-  };
-}();
-var getData = /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(Area) {
-    var url, res, data;
-    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            url = "https://statfin.stat.fi/PxWeb/api/v1/en/StatFin/synt/statfin_synt_pxt_12dy.px";
-            _context3.t0 = fetch;
-            _context3.t1 = url;
-            _context3.t2 = {
-              "content-type": "application/json"
-            };
-            _context3.t3 = JSON;
-            _context3.next = 7;
-            return JsonQuery(Area);
-          case 7:
-            _context3.t4 = _context3.sent;
-            _context3.t5 = _context3.t3.stringify.call(_context3.t3, _context3.t4);
-            _context3.t6 = {
-              method: "POST",
-              headers: _context3.t2,
-              body: _context3.t5
-            };
-            _context3.next = 12;
-            return (0, _context3.t0)(_context3.t1, _context3.t6);
-          case 12:
-            res = _context3.sent;
-            if (res.ok) {
-              _context3.next = 15;
-              break;
-            }
-            return _context3.abrupt("return");
-          case 15:
-            _context3.next = 17;
-            return res.json();
-          case 17:
-            data = _context3.sent;
-            return _context3.abrupt("return", data);
-          case 19:
           case "end":
             return _context3.stop();
         }
       }
     }, _callee3);
   }));
-  return function getData(_x2) {
+  return function JsonQuery(_x2) {
     return _ref3.apply(this, arguments);
   };
 }();
-var buildChart = /*#__PURE__*/function () {
+var getData = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(Area) {
-    var data, years, regions, population, chartData, chart;
+    var url, res, data;
     return _regeneratorRuntime().wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            _context4.next = 2;
+            url = "https://statfin.stat.fi/PxWeb/api/v1/en/StatFin/synt/statfin_synt_pxt_12dy.px";
+            _context4.t0 = fetch;
+            _context4.t1 = url;
+            _context4.t2 = {
+              "content-type": "application/json"
+            };
+            _context4.t3 = JSON;
+            _context4.next = 7;
+            return JsonQuery(Area);
+          case 7:
+            _context4.t4 = _context4.sent;
+            _context4.t5 = _context4.t3.stringify.call(_context4.t3, _context4.t4);
+            _context4.t6 = {
+              method: "POST",
+              headers: _context4.t2,
+              body: _context4.t5
+            };
+            _context4.next = 12;
+            return (0, _context4.t0)(_context4.t1, _context4.t6);
+          case 12:
+            res = _context4.sent;
+            if (res.ok) {
+              _context4.next = 15;
+              break;
+            }
+            return _context4.abrupt("return");
+          case 15:
+            _context4.next = 17;
+            return res.json();
+          case 17:
+            data = _context4.sent;
+            return _context4.abrupt("return", data);
+          case 19:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4);
+  }));
+  return function getData(_x3) {
+    return _ref4.apply(this, arguments);
+  };
+}();
+var buildChart = /*#__PURE__*/function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(Area) {
+    var data, years, regions, population, chartData, chart;
+    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            _context5.next = 2;
             return getData(Area);
           case 2:
-            data = _context4.sent;
+            data = _context5.sent;
             if (data == null) {
               document.getElementById("legend").innerHTML = "No info about this municipality!";
             }
@@ -3738,13 +3777,13 @@ var buildChart = /*#__PURE__*/function () {
             });
           case 10:
           case "end":
-            return _context4.stop();
+            return _context5.stop();
         }
       }
-    }, _callee4);
+    }, _callee5);
   }));
-  return function buildChart(_x3) {
-    return _ref4.apply(this, arguments);
+  return function buildChart(_x4) {
+    return _ref5.apply(this, arguments);
   };
 }();
 },{"./styles.css":"src/styles.css","frappe-charts/dist/frappe-charts.esm.js":"node_modules/frappe-charts/dist/frappe-charts.esm.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
