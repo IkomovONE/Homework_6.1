@@ -3771,7 +3771,7 @@ var buildChart = /*#__PURE__*/function () {
                   stacked: 1
               },*/
               lineOptions: {
-                hideDots: 1,
+                hideDots: 0,
                 regionFill: 0
               }
             });
