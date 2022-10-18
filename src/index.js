@@ -293,6 +293,8 @@ const buildChart = async (Area) => {
       for(let i = 0; i < years.length; i++) {
           valuesList.push(population[i])
       }
+      
+     
       regions[index] = {
           name: region,
           values: valuesList
@@ -318,9 +320,12 @@ const buildChart = async (Area) => {
       },*/
       lineOptions: {
           hideDots: 0,
+          dotSize: 8,
           regionFill: 0
           
       }
+      
+      
 
   })
 

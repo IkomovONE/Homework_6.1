@@ -3775,6 +3775,7 @@ var buildChart = /*#__PURE__*/function () {
               },*/
               lineOptions: {
                 hideDots: 0,
+                dotSize: 8,
                 regionFill: 0
               }
             });
